@@ -121,3 +121,7 @@ Syntax tokens are called *captures* in tree-sitter jargon. The following table l
 | variable | yes |
 | variable.builtin | no, falls back to variable | core julia built-in: `begin` and `end` in indices |
 | variable.member | no, falls back to variable | example: in `foo.bar`, the member is `bar` |
+
+## Known Issues
+
+- `@testset` macro syntax highlighting/recognition is currently not working properly in the grammar
