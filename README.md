@@ -52,25 +52,44 @@ See [this document](./CONTRIBUTING.md).
 
 The zed-julia extension provides comprehensive support for interactive Julia development with REPL integration.
 
+> **Note**: The current implementation requires manual keymap configuration and is not fully automatic. While it provides powerful textobjects for code selection, you need to configure keybindings in your `keymap.json` file. See the documentation below for setup instructions.
+
 #### Quick Start
 
 1. **Enable vim mode** in Zed (Settings → Vim Mode)
 2. **Start Julia REPL** in the integrated terminal (`ctrl-``, then type `julia`)
 3. **Configure keymap** (see below)
-4. **Press `shift-enter`** on any Julia function to execute it in the REPL!
+4. **Press `shift-enter f`** on any Julia function to execute it in the REPL!
 
 #### Setup
 
-Add this to your `~/.config/zed/keymap.json`:
+Add this to your `~/.config/zed/keymap.json` (recommended multi-key dispatch pattern):
 
 ```json
 [
   {
-    "context": "Editor && (language == Julia) && vim_mode == normal",
+    "context": "Editor && extension == jl && vim_mode == normal",
+    "bindings": {
+      "shift-enter f": [
+        "workspace::SendKeystrokes",
+        "v a f cmd-c escape ctrl-` cmd-v enter ctrl-`"
+      ],
+      "shift-enter c": [
+        "workspace::SendKeystrokes",
+        "v a c cmd-c escape ctrl-` cmd-v enter ctrl-`"
+      ],
+      "shift-enter l": [
+        "workspace::SendKeystrokes",
+        "V cmd-c escape ctrl-` cmd-v enter ctrl-`"
+      ]
+    }
+  },
+  {
+    "context": "Editor && extension == jl && vim_mode == visual",
     "bindings": {
       "shift-enter": [
         "workspace::SendKeystrokes",
-        "v a f cmd-c escape ctrl-` cmd-v enter ctrl-`"
+        "cmd-c ctrl-` cmd-v enter ctrl-`"
       ]
     }
   }
@@ -78,6 +97,12 @@ Add this to your `~/.config/zed/keymap.json`:
 ```
 
 **Linux users**: Replace `cmd-` with `ctrl-` and `cmd-v` with `ctrl-shift-v`.
+
+**Usage**:
+- `shift-enter f` - Send function/loop/conditional
+- `shift-enter c` - Send class/struct/module  
+- `shift-enter l` - Send current line
+- In visual mode: select code, then `shift-enter`
 
 This enables automatic selection and execution of Julia constructs:
 - **Functions** - `function...end`

@@ -21,12 +21,20 @@ Complete guide for setting up an efficient Julia REPL workflow in Zed Editor.
 
 This setup enables a seamless Julia development workflow where you can:
 
-- **Send code to REPL with a single keypress** (`shift-enter`)
+- **Send code to REPL with a single keypress** (`shift-enter f/c/l`)
 - **Automatically select functions, structs, modules, and more**
 - **Keep your hands on the keyboard** (no mouse required)
 - **Get immediate feedback** from the REPL while editing
 
 **Result**: A workflow similar to Jupyter notebooks but in your text editor!
+
+> **Important Note**: The current implementation is not fully automatic and requires manual configuration:
+> - You must manually configure keybindings in your `~/.config/zed/keymap.json`
+> - Vim mode is required for automatic code selection
+> - Julia REPL must be manually started in the terminal
+> - The workflow uses clipboard-based code transfer
+>
+> **Why these limitations?** Zed extensions cannot add custom keybindings or commands directly. This implementation works within Zed's architecture by providing powerful textobjects (for code selection) and comprehensive documentation (for user configuration).
 
 ---
 

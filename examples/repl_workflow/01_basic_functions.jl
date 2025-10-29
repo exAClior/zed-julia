@@ -21,7 +21,7 @@ end
 
 # Function with arguments
 function greet_person(name)
-    println("Hello, $name!")
+    println("Hello, $name !")
 end
 
 # Try it: shift-enter on function, then in REPL: greet_person("Alice")

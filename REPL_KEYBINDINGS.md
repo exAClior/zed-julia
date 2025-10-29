@@ -2,6 +2,8 @@
 
 This guide provides various keybinding patterns for sending Julia code from the editor to a running REPL in the integrated terminal.
 
+> **Note**: This setup requires manual configuration. Zed extensions cannot add keybindings automatically, so you must edit your `~/.config/zed/keymap.json` file. This guide provides tested keybinding patterns that you can copy and customize.
+
 ---
 
 ## Table of Contents
@@ -45,11 +47,13 @@ This guide provides various keybinding patterns for sending Julia code from the 
 3. Add one of the keybinding configurations below
 4. Save the file
 
+**Recommended**: Use Level 3 (Multi-Key Dispatch) as shown in the maintainer's configuration.
+
 ### Step 3: Use It!
 
 1. Open a Julia file
 2. Place cursor inside a function
-3. Press `shift-enter`
+3. Press `shift-enter f` (for function) or `shift-enter c` (for struct/module)
 4. Watch the code execute in the REPL!
 
 ---
@@ -159,18 +163,18 @@ This version escapes to normal mode first, then performs the same actions, and r
 
 ---
 
-### Level 3: Multi-Key Dispatch (Advanced)
+### Level 3: Multi-Key Dispatch (Advanced) ⭐ **Recommended - Maintainer's Configuration**
 
 **Best for**: Power users who want granular control over which construct type to send.
 
 **How it works**: Use `shift-enter` followed by a letter to specify the construct type.
 
-**Configuration**:
+**Configuration** (from maintainer's `~/.config/zed/keymap.json`):
 
 ```json
 [
   {
-    "context": "Editor && (language == Julia) && vim_mode == normal",
+    "context": "Editor && extension == jl && vim_mode == normal",
     "bindings": {
       "shift-enter f": [
         "workspace::SendKeystrokes",
@@ -185,14 +189,30 @@ This version escapes to normal mode first, then performs the same actions, and r
         "V cmd-c escape ctrl-` cmd-v enter ctrl-`"
       ]
     }
+  },
+  {
+    "context": "Editor && extension == jl && vim_mode == visual",
+    "bindings": {
+      "shift-enter": [
+        "workspace::SendKeystrokes",
+        "cmd-c ctrl-` cmd-v enter ctrl-`"
+      ]
+    }
   }
 ]
 ```
 
 **Usage**:
-- `shift-enter f` - Send function
-- `shift-enter c` - Send class/struct/module
-- `shift-enter l` - Send current line
+- **In normal mode**:
+  - `shift-enter f` - Send function/loop/conditional
+  - `shift-enter c` - Send class/struct/module
+  - `shift-enter l` - Send current line
+- **In visual mode**: Select code, then `shift-enter` - Send selection
+
+**Why `extension == jl` instead of `language == Julia`?**
+- More precise file matching
+- Only activates for `.jl` files
+- Avoids conflicts with other language modes
 
 **Advantages**:
 - ✅ Precise control
