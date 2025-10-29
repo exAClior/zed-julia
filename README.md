@@ -48,6 +48,66 @@ specify a Julia installation that's not on your PATH.
 See [this document](./CONTRIBUTING.md).
 
 
+### REPL Integration
+
+The zed-julia extension provides comprehensive support for interactive Julia development with REPL integration.
+
+#### Quick Start
+
+1. **Enable vim mode** in Zed (Settings → Vim Mode)
+2. **Start Julia REPL** in the integrated terminal (`ctrl-``, then type `julia`)
+3. **Configure keymap** (see below)
+4. **Press `shift-enter`** on any Julia function to execute it in the REPL!
+
+#### Setup
+
+Add this to your `~/.config/zed/keymap.json`:
+
+```json
+[
+  {
+    "context": "Editor && (language == Julia) && vim_mode == normal",
+    "bindings": {
+      "shift-enter": [
+        "workspace::SendKeystrokes",
+        "v a f cmd-c escape ctrl-` cmd-v enter ctrl-`"
+      ]
+    }
+  }
+]
+```
+
+**Linux users**: Replace `cmd-` with `ctrl-` and `cmd-v` with `ctrl-shift-v`.
+
+This enables automatic selection and execution of Julia constructs:
+- **Functions** - `function...end`
+- **Macros** - `macro...end`
+- **Structs** - `struct...end`
+- **Modules** - `module...end`
+- **Loops** - `for...end`, `while...end`
+- **Conditionals** - `if...elseif...else...end`
+- **Try-catch** - `try...catch...finally...end`
+- **Blocks** - `begin...end`, `let...end`, `do...end`, `quote...end`
+
+#### Documentation
+
+For complete setup instructions, keybinding options, and advanced workflows, see:
+
+- **[REPL_SETUP.md](./REPL_SETUP.md)** - Complete setup guide with workflows
+- **[REPL_KEYBINDINGS.md](./REPL_KEYBINDINGS.md)** - Detailed keybinding reference
+
+#### Textobjects Reference
+
+The extension provides vim-style textobjects for navigation:
+
+- `v a f` - Select around function/loop/conditional
+- `v i f` - Select inside function body
+- `v a c` - Select around struct/module
+- `v i c` - Select inside struct/module
+- `v a [` - Select around comment
+
+These textobjects power the automatic code selection feature.
+
 ### Using Zed in the REPL
 
 Zed is currently not on the list of Julia's predefined editors. You can add it to your `~/.julia/config/startup.jl`:
