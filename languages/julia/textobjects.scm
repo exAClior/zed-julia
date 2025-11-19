@@ -6,8 +6,6 @@
 ; Functions
 (function_definition) @function.around
 
-(short_function_definition) @function.around
-
 (macro_definition) @function.around
 
 ; Classes (types)
