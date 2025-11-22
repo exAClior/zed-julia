@@ -1,0 +1,23 @@
+{
+  "description": "Add these settings to your ~/.config/zed/settings.json",
+  "terminal": {
+    "env": {
+      "SLIME_TMUX_SOCKET": "default",
+      "SLIME_TMUX_PANE": ":.1",
+      "SLIME_AUTO_ENTER": "1",
+      "SLIME_DEBUG": "0"
+    }
+  },
+  "tasks": {
+    "variables": {
+      "SLIME_TMUX_PANE": ":.1"
+    }
+  },
+  "languages": {
+    "Julia": {
+      "format_on_save": "on",
+      "tab_size": 4,
+      "hard_tabs": false
+    }
+  }
+}

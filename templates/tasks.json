@@ -1,0 +1,45 @@
+[
+  {
+    "label": "Send to Julia REPL",
+    "command": "sh",
+    "args": [
+      "-c",
+      "~/.local/share/zed/extensions/work/julia/scripts/send-to-tmux.sh"
+    ],
+    "tags": ["repl", "julia", "slime"],
+    "hide": "always",
+    "env": {
+      "SLIME_TMUX_PANE": ":.1",
+      "SLIME_AUTO_ENTER": "1"
+    }
+  },
+  {
+    "label": "Send to Julia REPL (no execute)",
+    "command": "sh",
+    "args": [
+      "-c",
+      "~/.local/share/zed/extensions/work/julia/scripts/send-to-tmux.sh"
+    ],
+    "tags": ["repl", "julia", "slime"],
+    "hide": "always",
+    "env": {
+      "SLIME_TMUX_PANE": ":.1",
+      "SLIME_AUTO_ENTER": "0"
+    }
+  },
+  {
+    "label": "Send to Julia REPL (debug)",
+    "command": "sh",
+    "args": [
+      "-c",
+      "~/.local/share/zed/extensions/work/julia/scripts/send-to-tmux.sh"
+    ],
+    "tags": ["repl", "julia", "slime", "debug"],
+    "hide": "always",
+    "env": {
+      "SLIME_TMUX_PANE": ":.1",
+      "SLIME_AUTO_ENTER": "1",
+      "SLIME_DEBUG": "1"
+    }
+  }
+]

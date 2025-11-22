@@ -1,0 +1,56 @@
+[
+  {
+    "context": "Editor && (language == Julia)",
+    "bindings": {
+      "ctrl-enter": [
+        "editor::Copy",
+        {
+          "task::Spawn": {
+            "task_name": "Send to Julia REPL"
+          }
+        }
+      ],
+      "ctrl-shift-enter": [
+        "editor::Copy",
+        {
+          "task::Spawn": {
+            "task_name": "Send to Julia REPL (no execute)"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && (language == Julia)",
+    "bindings": {
+      "ctrl-c ctrl-c": [
+        "vim::PushOperator",
+        {
+          "Copy": {
+            "register": "+"
+          }
+        },
+        "vim::PopOperator",
+        {
+          "task::Spawn": {
+            "task_name": "Send to Julia REPL"
+          }
+        }
+      ],
+      "ctrl-c ctrl-s": [
+        "vim::PushOperator",
+        {
+          "Copy": {
+            "register": "+"
+          }
+        },
+        "vim::PopOperator",
+        {
+          "task::Spawn": {
+            "task_name": "Send to Julia REPL (no execute)"
+          }
+        }
+      ]
+    }
+  }
+]

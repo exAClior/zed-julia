@@ -62,6 +62,51 @@ end
 
 Set the environment variable EDITOR (or VISUAL or JULIA_EDITOR, whatever you use) to `zed --wait`. Then, using `InteractiveUtils.edit` etc. will open the document in Zed.
 
+### Sending Code to Julia REPL (vim-slime style)
+
+You can send code from Zed to a Julia REPL running in tmux, similar to vim-slime. This is useful for interactive development and testing code snippets.
+
+**Quick Start:**
+
+1. Start tmux with Julia:
+   ```bash
+   tmux new-session -s julia-dev
+   tmux split-window -h
+   julia  # In the right pane
+   ```
+
+2. Copy the script:
+   ```bash
+   mkdir -p ~/.local/bin
+   cp scripts/send-to-tmux.sh ~/.local/bin/
+   chmod +x ~/.local/bin/send-to-tmux.sh
+   ```
+
+3. Configure Zed (add to `.zed/tasks.json`):
+   ```json
+   [{
+     "label": "Send to Julia REPL",
+     "command": "sh",
+     "args": ["-c", "~/.local/bin/send-to-tmux.sh"],
+     "hide": "always",
+     "env": {"SLIME_TMUX_PANE": ":.1"}
+   }]
+   ```
+
+4. Add keybinding (in `~/.config/zed/keymap.json`):
+   ```json
+   [{
+     "context": "Editor && (language == Julia)",
+     "bindings": {
+       "ctrl-enter": ["editor::Copy", {"task::Spawn": {"task_name": "Send to Julia REPL"}}]
+     }
+   }]
+   ```
+
+5. **Usage**: Select Julia code and press `Ctrl-Enter` to send to REPL.
+
+📚 **Full documentation**: See [`docs/REPL_QUICKSTART.md`](docs/REPL_QUICKSTART.md) for detailed setup and [`docs/REPL_INTEGRATION.md`](docs/REPL_INTEGRATION.md) for advanced usage.
+
 ### Customizing syntax highlighting
 
 You can change the foreground color and text attributes of syntax tokens in your `~/.config/zed/settings.json`, for instance:
